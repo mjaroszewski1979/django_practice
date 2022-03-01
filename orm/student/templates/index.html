@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for obj in context.all %}
+    <p>{{ obj.firstname }} | {{ obj.surname }} | {{ obj.age }} | {{ obj.classrom }} | {{ obj.teacher }}</p>
+    {% endfor %}
+    <h1>{{ context.data }}</h1>
+    <h1>{{ context.data1 }}</h1>
+    <h1>{{ context.data2 }}</h1>
+    <h1>{{ context.data3 }}</h1>
+    <h1>{{ context.data4 }}</h1>
+</body>
+</html>

@@ -10,10 +10,21 @@
     {% for obj in context.all %}
     <p>{{ obj.firstname }} | {{ obj.surname }} | {{ obj.age }} | {{ obj.classrom }} | {{ obj.teacher }}</p>
     {% endfor %}
-    <h1>{{ context.data }}</h1>
-    <h1>{{ context.data1 }}</h1>
-    <h1>{{ context.data2 }}</h1>
-    <h1>{{ context.data3 }}</h1>
-    <h1>{{ context.data4 }}</h1>
+    <hr>
+    <h3>{{ context.data }}</h3>
+    <h3>{{ context.data1 }}</h3>
+    <h3>{{ context.data2 }}</h3>
+    <h3>{{ context.data3 }}</h3>
+    <h3>{{ context.data4 }}</h3>
+    <h3>{{ context.union }}</h3>
+    <h3>{{ context.union_dict }}</h3>
+    <h3>{{ context.only }}</h3>
+    {% for x in context.raw %}
+    <p>{{ x.age }}</p>
+    {% endfor %}
+    <h3>{{ context.counter }}</h3>
+    {% for item in context.dict %}
+    <p>{{ item.classroom }}</p>
+    {% endfor %}
 </body>
 </html>

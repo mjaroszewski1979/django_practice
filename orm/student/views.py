@@ -4,23 +4,6 @@ from django.db import connection
 from django.db.models import Q
 
 
-'''def student_list(request):
-
-    posts = Student.objects.all()
-
-    print(posts)
-    print(posts.query)
-    print(connection.queries)
-
-    return render(request, 'index.html',{'posts':posts})
-
-def student_list(request):
-    posts = Student.objects.filter(surname__startswith='jaroszewski') | Student.objects.filter(surname__startswith='kowalski') | Student.objects.filter(surname__endswith='ski')
-
-    print(posts)
-    print(connection.queries)
-
-    return render(request, 'index.html',{'posts':posts})'''
 
 def dictfetchall(cursor):
     desc = cursor.description

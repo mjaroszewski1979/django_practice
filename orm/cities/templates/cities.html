@@ -13,6 +13,35 @@
     <p>{{ context.city_num }}</p>
     <p>{{ context.above_avg }}</p>
     <p>{{ context.avg_all_cities }}</p>
-    <p>{{ context.data }}</p>
+
+    {% for obj in context.data %}
+    <p>{{ obj.name }} | {{ obj.av_pop }}</p>
+    {% endfor %}
+    <hr>
+    {% for country in context.data1 %}
+    <p>{{ country.name }} number of cities: {{ country.num_cities }}</p>
+    {% endfor %}
+    <hr>
+    <p>{{ context.data2.city__population__min }}</p>
+    <hr>
+    {% for country in context.data3 %}
+    <p>Country with averagae population greater than 2 mln - {{ country.name }}</p>
+    {% endfor %}
+    <hr>
+    <p>{{ context.data4.num_cities__min }}</p>
+    <hr>
+    {% for i in context.data5 %}
+    {% if i.num_cities > 0 %}
+    <p>{{ i.name }} | {{ i.num_cities }}</p>
+    {% endif %}
+    {% endfor %}
+    <hr>
+    {% for country in context.data6 %}
+    <p>{{ country.name }}</p>
+    {% endfor %}
+
+
+
+
 </body>
 </html>

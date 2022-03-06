@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for obj in context.sub_total %}
+    <p>{{ obj.quantity }} | {{ obj.product.price }} | {{ obj.sub_total }}</p>
+    {% endfor %}
+    <hr>
+    <p>{{ context.total.total }}</p>
+    <p>{{ context.average.average }}</p>
+    <hr>
+    {% for obj in context.dates_match %}
+    <p>{{ obj.order_date }} | {{ obj.delivered_date }}</p>
+    {% endfor %}
+    <hr>
+    {% for obj in context.del_time %}
+    <p>{{ obj.order_date }} | {{ obj.customer.email }}</p>
+    {% endfor %}
+</body>
+</html>

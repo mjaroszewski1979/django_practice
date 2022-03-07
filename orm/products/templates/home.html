@@ -21,5 +21,17 @@
     {% for obj in context.del_time %}
     <p>{{ obj.order_date }} | {{ obj.customer.email }}</p>
     {% endfor %}
+    <hr>
+    {% for obj in context.concat %}
+    <p>{{ obj.full_name }}</p>
+    {% endfor %}
+    <hr>
+    {% for obj in context.orders %}
+    <p>{{ obj.customer.first_name }} {{ obj.customer.last_name }} | {{ obj.customer.city }}</p>
+    {% endfor %}
+    <hr>
+    {% for obj in context.products %}
+    <p>{{ obj.customer.email }} </p>
+    {% endfor %}
 </body>
 </html>

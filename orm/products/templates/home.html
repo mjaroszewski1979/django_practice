@@ -7,29 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    {% for obj in context.sub_total %}
-    <p>{{ obj.quantity }} | {{ obj.product.price }} | {{ obj.sub_total }}</p>
-    {% endfor %}
-    <hr>
-    <p>{{ context.total.total }}</p>
-    <p>{{ context.average.average }}</p>
-    <hr>
-    {% for obj in context.dates_match %}
-    <p>{{ obj.order_date }} | {{ obj.delivered_date }}</p>
-    {% endfor %}
-    <hr>
-    {% for obj in context.del_time %}
-    <p>{{ obj.order_date }} | {{ obj.customer.email }}</p>
-    {% endfor %}
-    <hr>
-    {% for obj in context.concat %}
-    <p>{{ obj.full_name }}</p>
-    {% endfor %}
-    <hr>
-    {% for obj in context.orders %}
-    <p>{{ obj.customer.first_name }} {{ obj.customer.last_name }} | {{ obj.customer.city }}</p>
-    {% endfor %}
-    <hr>
     {% for obj in context.products %}
     <p>{{ obj.customer.email }} </p>
     {% endfor %}

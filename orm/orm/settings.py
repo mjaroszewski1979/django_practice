@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cities',
     'products',
     'debug_toolbar',
+    'book',
 ]
 
 MIDDLEWARE = [

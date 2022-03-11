@@ -3,7 +3,8 @@ from .models import Customer, Product, Order, LineItem
 from django.db import connection
 from django.db.models import Q, Min, Avg, Count, Sum, F, Value
 from django.db.models.functions import Concat
-from datetime import timedelta
+from datetime import timedelta, date
+
 
 
 
@@ -25,6 +26,8 @@ def home(request):
  
 
     return render(request, 'home.html',{'context': context})
+
+
 
 
 

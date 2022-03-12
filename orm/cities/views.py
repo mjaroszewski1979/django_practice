@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,  get_object_or_404
 from .models import Country,City
 from django.db import connection
 from django.db.models import Q, Min, Avg, Count
@@ -43,3 +43,8 @@ def cities_list(request):
     
 
     return render(request, 'cities.html',{'context': context})
+
+def detail(request, slug=None): 
+    city = get_object_or_404(City, slug=slug)
+    return render(request, 'detail.html', {'city': city})
+

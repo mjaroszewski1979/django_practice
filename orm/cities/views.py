@@ -10,6 +10,15 @@ from django.db.models import Q, Min, Avg, Count
 def cities_list(request):
     context = {}
     cities = City.objects.all()
+    context['val_list'] = City.objects.values_list('country__name', flat=True).get(pk=3)
+    cities_ag = City.objects.filter(name__iregex=r"^[a-g].*$")
+    germany = City.objects.filter(country__name='germany')
+    context['iregex'] = cities_ag
+    context['iregex_count'] = City.objects.filter(name__iregex=r"^[a-g].*$").count()
+    inter = cities_ag & germany
+    context['inter'] = inter[0].name
+    context['inter1'] = City.objects.filter(name__iregex=r"^[a-g].*$", country__name='germany')[0].name
+    context['diff'] = cities_ag.exclude(country__name='germany')
     context['vars'] = vars(cities[0])
     # Minimal population for each city
     min_population = City.objects.annotate(Min('population'))

@@ -9,17 +9,26 @@ from django.db.models import Q, Min, Avg, Count
 
 def cities_list(request):
     context = {}
-    cities = City.objects.all()
+    '''cities = City.objects.all()
+    # List of values for given field, flat=True to get python list
     context['val_list'] = City.objects.values_list('country__name', flat=True).get(pk=3)
+    # Filter using regular expression
     cities_ag = City.objects.filter(name__iregex=r"^[a-g].*$")
     germany = City.objects.filter(country__name='germany')
     context['iregex'] = cities_ag
+    # Count number of objects
     context['iregex_count'] = City.objects.filter(name__iregex=r"^[a-g].*$").count()
+    # Intersection
     inter = cities_ag & germany
     context['inter'] = inter[0].name
     context['inter1'] = City.objects.filter(name__iregex=r"^[a-g].*$", country__name='germany')[0].name
+    # Difference between sets
     context['diff'] = cities_ag.exclude(country__name='germany')
-    context['vars'] = vars(cities[0])
+    context['only'] = City.objects.filter(Q(population__gt=3000000)).only('slug')'''
+    items = City.objects.filter(Q(name__icontains='a'))
+    country_ids = items.values_list('country__id', flat=True).distinct()
+    context['bulk'] = Country.objects.in_bulk(country_ids)
+    '''context['vars'] = vars(cities[0])
     # Minimal population for each city
     min_population = City.objects.annotate(Min('population'))
     context['min_population'] = vars(min_population[1])
@@ -48,7 +57,7 @@ def cities_list(request):
     # Number of cities for partcicular country with population greater than 3 mln
     context['data5'] = Country.objects.annotate(num_cities=Count('city', filter=Q(city__population__gt=3000000)))
     # Number of cities for partcicular country with population greater than 3 mln in ascending order
-    context['data6'] = Country.objects.annotate(num_cities=Count('city', filter=Q(city__population__gt=3000000))).order_by('-num_cities')
+    context['data6'] = Country.objects.annotate(num_cities=Count('city', filter=Q(city__population__gt=3000000))).order_by('-num_cities')'''
     
 
     return render(request, 'cities.html',{'context': context})

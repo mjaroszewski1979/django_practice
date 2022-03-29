@@ -37,11 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'student',
     'cities',
     'products',
     'debug_toolbar',
     'book',
+    'forms',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,5 @@ INTERNAL_IPS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

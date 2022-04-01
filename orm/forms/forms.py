@@ -1,10 +1,12 @@
 from django import forms
+from django.forms import ModelForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from crispy_forms.helper import FormHelper
-from crispy_forms.bootstrap import InlineField, FormActions, StrictButton, Div
+from crispy_forms.bootstrap import InlineField, FormActions, StrictButton, Div, InlineRadios
 from crispy_forms import layout, bootstrap
-from crispy_forms.layout import Layout, Submit, Row, Column
+from crispy_forms.layout import Layout, Submit, Row, Column, Field
+from .models import Students
 
 class CollegeForm(forms.Form):
 
@@ -126,7 +128,54 @@ class NewSchoolForm(forms.Form):
     date_of_birth = forms.DateField(
         widget=forms.DateInput(
             attrs={'type':'date', 'max': datetime.now().date()}))  
-      
 
+class InlineForm(forms.Form):
 
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    address_1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Address1'}))
+    age = forms.IntegerField()
+    subject = forms.ChoiceField(
+        choices=SUBJECT_CHOICES, 
+        widget=forms.RadioSelect())
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(
+            attrs={'type':'date', 'max': datetime.now().date()})) 
+    
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row(
+                Column('name'),
+                Column('address_1')
+            ),
+            Row(
+                Column('age'),
+                Column('date_of_birth')
+            ),
+            InlineRadios('subject'),
+            Submit('submit', 'Sign up', css_class='mt-4')
+        )
+
+ 
+class CityForm(ModelForm):
+    class Meta:
+        model = Students
+        fields = ['name', 'address', 'age']
+
+    @property
+    def helper(self):
+        helper = FormHelper()
+
+        for field in self.Meta().fields:
+            helper.layout.append(
+                Field(field)
+            )
+        
+        helper.field_class = 'col-4'
+        helper.add_layout(Submit('submit', 'Sign up', css_class='mt-4'))
+
+        
+        return helper
 

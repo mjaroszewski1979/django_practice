@@ -8,5 +8,7 @@ urlpatterns = [
     path('two/', views.index_2, name='index_2'),
     path('three/', views.index_3, name='index_3'),
     path('four/', views.index_4, name='index_4'),
+    path('five/', views.index_5, name='index_5'),
+    path('create/', views.CreateView.as_view(), name='create_view'),
     
 ]

@@ -164,18 +164,45 @@ class CityForm(ModelForm):
         model = Students
         fields = ['name', 'address', 'age']
 
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+        Div(
+            Div('name', css_class="col-sm-2 m-2"),
+            Div('address', css_class="col-sm-2 m-2"),
+            Div('age', css_class="col-sm-2 m-2"),
+            bootstrap.FormActions(
+                layout.Submit('submit', 'Add', css_class='col-sm-2 m-2 btn btn-info')),
+            css_class='row',))
+        self.request = kwargs.pop('request', None)
+        return super(CityForm, self).__init__(*args, **kwargs)
+
+class NewStudsForm(ModelForm):
+    class Meta:
+        model = Students
+        fields = ['name', 'address', 'age']
+
     @property
     def helper(self):
         helper = FormHelper()
 
         for field in self.Meta().fields:
             helper.layout.append(
-                Field(field)
-            )
-        
-        helper.field_class = 'col-4'
-        helper.add_layout(Submit('submit', 'Sign up', css_class='mt-4'))
+                Layout(
+            Div(
+            Div(field, css_class="col-sm-2 m-5"))))
+
 
         
+        helper.field_class = 'col-4'
+        
         return helper
+
+        
+        
+
+
+        
 

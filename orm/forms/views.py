@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import CityForm
+from .forms import CityForm, NewStudsForm
+from .models import Students
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column, Field
 
 from . import forms
 
@@ -29,3 +32,15 @@ class CreateView(SuccessMessageMixin, generic.CreateView):
     template_name = 'forms/create.html'
     success_message = 'Success'
     form_class = CityForm
+
+class NewCreateView(SuccessMessageMixin, generic.CreateView):
+    template_name = 'forms/newcreate.html'
+    model = Students
+    fields = ['name', 'address', 'age']
+
+    def get_form(self, form_class=None):
+       form = super().get_form(form_class)
+       form.helper = FormHelper()
+       form.helper.field_class = 'col-6 mb-2'
+       form.helper.add_input(Submit('submit', 'Create', css_class='btn-primary mt-2'))
+       return form

@@ -10,5 +10,6 @@ urlpatterns = [
     path('four/', views.index_4, name='index_4'),
     path('five/', views.index_5, name='index_5'),
     path('create/', views.CreateView.as_view(), name='create_view'),
+    path('newcreate/', views.NewCreateView.as_view(), name='new_create_view'),
     
 ]

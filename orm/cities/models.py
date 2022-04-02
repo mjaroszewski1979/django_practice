@@ -26,5 +26,7 @@ class City(BaseClass):
 
     def get_absolute_url(self): # < here
         return reverse('cities:detail', args=[str(self.slug)])
+
+
     
 

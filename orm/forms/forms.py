@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from datetime import datetime
 from django.urls import reverse_lazy
 from crispy_forms.helper import FormHelper
-from crispy_forms.bootstrap import InlineField, FormActions, StrictButton, Div, InlineRadios
+from crispy_forms.bootstrap import InlineField, FormActions, StrictButton, Div, InlineRadios, PrependedText, PrependedAppendedText
 from crispy_forms import layout, bootstrap
 from crispy_forms.layout import Layout, Submit, Row, Column, Field
 from .models import Students
@@ -147,8 +147,8 @@ class InlineForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row(
-                Column('name'),
-                Column('address_1')
+                Column(PrependedText('name', '#')), 
+                Column(PrependedAppendedText('address_1', '@'))
             ),
             Row(
                 Column('age'),
@@ -190,15 +190,48 @@ class NewStudsForm(ModelForm):
 
         for field in self.Meta().fields:
             helper.layout.append(
-                Layout(
-            Div(
-            Div(field, css_class="col-sm-2 m-5"))))
-
-
+                Field(field)
+            )
         
         helper.field_class = 'col-4'
         
         return helper
+
+class AnotherForm(ModelForm):
+    class Meta:
+        model = Students
+        fields = ['name', 'address', 'age']
+
+    def __init__(self, *args, **kwargs):
+        super(AnotherForm, self).__init__()
+
+        for field in self.fields:
+            data = {
+            'placeholder' : f'Student {str(field)}',
+            'class' : 'col-sm-10 col-md-3'
+            }
+            self.fields[str(field)].widget.attrs.update(data)
+
+class CreditCardForm(forms.Form):
+    fullname = forms.CharField(label='Full Name', required=True)
+    card_number = forms.CharField(label='Card', required=True, max_length=16)
+    expire = forms.DateField(label='Expire Date', input_formats=['%m/%y'])
+    csv = forms.IntegerField(label='CSV')
+    notes = forms.CharField(label='Order Notes', widget=forms.Textarea())
+
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'form-horizontal'
+    helper.label_class = 'col-lg-2'
+    helper.field_class = 'col-lg-8'
+    helper.layout = Layout(
+        Field('fullname', css_class='input-sm mb-2'),
+        Field('card_number', css_class='input-sm mb-2'),
+        Field('expire', css_class='input-sm mb-2'),
+        Field('csv', css_class='input-sm mb-2'),
+        Field('notes', rows=3),
+        FormActions(Submit('purchase', 'purchase', css_class='btn-primary mt-2'))
+    )
 
         
         

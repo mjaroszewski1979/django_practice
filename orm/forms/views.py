@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import CityForm, NewStudsForm
+from .forms import CityForm, NewStudsForm, CreditCardForm
 from .models import Students
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Field
@@ -28,10 +28,19 @@ def index_5(request):
     context = {'form': forms.InlineForm()}
     return render(request, 'forms/index_5.html', context)
 
+def index_6(request):
+    form = forms.AnotherForm()
+    return render(request, 'forms/index_6.html', {'form':form})
+
+def index_7(request):
+    context = {'form': forms.CreditCardForm()}
+    return render(request, 'forms/card.html', context)
+
 class CreateView(SuccessMessageMixin, generic.CreateView):
     template_name = 'forms/create.html'
     success_message = 'Success'
     form_class = CityForm
+
 
 class NewCreateView(SuccessMessageMixin, generic.CreateView):
     template_name = 'forms/newcreate.html'

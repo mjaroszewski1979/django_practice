@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Create city for {{ country.name }}</h3>
+    <button type="button" hx-get="{% url 'cities:create-city-form' %}" hx-target="#cityforms" hx-swap="beforeend">
+    Add form
+    </button>
+    <div id="cityforms"></div>
+{% endblock content %}

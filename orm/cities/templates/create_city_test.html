@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3>Create city for {{ country.name }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {{ formset.as_p }}
+        <button>Submit</button>
+    </form>
+{% endblock content %}

@@ -1,7 +1,8 @@
-from django.shortcuts import render,  get_object_or_404
-from .models import Country,City
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from django.db.models import Q, Min, Avg, Count
+from .models import Country,City
+from .forms import CityFormSet, CityModelForm
 
 
 
@@ -65,4 +66,29 @@ def cities_list(request):
 def detail(request, slug=None): 
     city = get_object_or_404(City, slug=slug)
     return render(request, 'detail.html', {'city': city})
+
+def create_city(request, pk):
+    country = Country.objects.get(pk=pk)
+    formset = CityFormSet(request.POST or None)
+
+    if request.method == 'POST':
+        if formset.is_valid():
+            formset.instance = country
+            formset.save()
+            return redirect('cities:create-city', pk=country.id)
+
+    context = {
+        'formset' : formset,
+        'country' : country
+    }
+
+    return render(request, 'create_city.html', context)
+
+def create_city_form(request):
+    context = {
+        'form' : CityModelForm()
+    }
+    return render(request, 'partials/city_form.html', context)
+
+
 
